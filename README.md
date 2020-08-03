@@ -10,7 +10,7 @@ Verify the case and used what learned for STEM project.
 3) Coding technique for simple scalling & filtering, i.e. ADC range 0-1023, mapping to speed setting 0-63; ADC result filteried, more immunity to noise, steady ADC reading;  
 
 ### Odometer & RF signal for RPM
-According to user, a brand named product, few years aged model, https://www.cateye.com/files/manual_dl/9/965/CC-PA100W_HP_TC_v2-1.pdf. It is a 19 KHZ transmitter with a reed relay, wheeling per revolution detected, sent two pluses via RF singal to odotometer. FCC ID https://fcc.report/FCC-ID/ON5SPDSENSORA, designed in year 2005.  
+According to user, a brand named product, few years aged model, https://www.cateye.com/files/manual_dl/9/965/CC-PA100W_HP_TC_v2-1.pdf. It is a 19 KHZ transmitter with a reed switch, wheeling per revolution detected, sent two pluses via RF singal to odotometer. FCC ID https://fcc.report/FCC-ID/ON5SPDSENSORA, designed in year 2005.  
 
 ### Theory
 Operation, rolling magnet trigger the reed switch, RF signal generator pulsing ASK (Amplitude Shift Keying) or OOK (On-off-keying) signal to odometer, it was said 70cm aprat in maximum, test result, this unit pair was no better than 45cm apart otherwise no singal. On the other hands, 99.9km/h is max, over plusing, no RPM counting was capable; low end 3.3km/h was able to display; Counting event against time, odometer could be used to display many functions of time related, for example speed, trip distant, ect.  
