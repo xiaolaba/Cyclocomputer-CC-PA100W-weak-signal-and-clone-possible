@@ -25,7 +25,7 @@ build the "wheeling" jig, trigger original RF transimitter, mimic real biking. R
 ### code and hints
 These code build with Arduino IDE, under laying is actual avr-gcc, some mix of pure C and/or Arduino C++.
 
-### Filtering and easy 8 bit MCU (AVR or Arduino Nano / Uno)  
+#### Filtering and easy 8 bit MCU (AVR or Arduino Nano / Uno)  
 Many online tutorial was telling to sum as many as possible sample from ADC, kicks out max/min, find the average, some sort of similar to MOVING AVERAGE method. It was ok and works, but what is the point to count so many and averaging. There is trick could be used, uses RC filter in hardware before feeds input to ADC, one resistor and one capacitor (integrator) will do the job, usually 10K/0.01uF. One advance trick is using software to build such RC filtering, simple, fast & better than hardware RC filter, code snippet following, FILTER_SHIFT is RC constant, the greater number the longer response time and vise versa. I did not invented this but learned from those someone who was working for NASA & Appollo, it is fun of learning and finally understood the beauty of code / algorithm design.
 ```  
    uint16_t s = analogRead(A5); // speed setting  
