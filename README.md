@@ -26,7 +26,7 @@ build the "wheeling" jig, trigger original RF transimitter, mimic real biking. R
 These code build with Arduino IDE, under laying is actual avr-gcc, some mix of pure C and/or Arduino C++.
 
 #### Filtering and easy 8 bit MCU (AVR or Arduino Nano / Uno)  
-##### Reading ADC for set point
+####   1. Reading ADC for set point
 Many online tutorial was telling to sum as many as possible sample from ADC, kicks out max/min, find the average, some sort of similar to MOVING AVERAGE method. It was ok and works, but what is the point to count so many and averaging. There is trick could be used, uses RC filter in hardware before feeds input to ADC, one resistor and one capacitor (integrator) will do the job, usually 10K/0.01uF. One advance trick is using software to build such RC filtering, simple, fast & better than hardware RC filter, code snippet following, FILTER_SHIFT is RC constant, the greater number the longer response time and vise versa. I did not invented this but learned from those someone who was working for NASA & Appollo, it is fun of learning and finally understood the beauty of code / algorithm design.
 ```  
    uint16_t s = analogRead(A5); // speed setting  
@@ -35,6 +35,15 @@ Many online tutorial was telling to sum as many as possible sample from ADC, kic
    integrator = integrator - (integrator >> FILTER_SHIFT) + s;  
    s = integrator >> FILTER_SHIFT;  
 
+```  
+
+####   2. Scaling ADC result to set point
+AVR MCU has ADC result (10 bit mode) in range 0-1024, but the speeding set point is 0-255. how to do that scaling ?
+Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slow down accordingly, it is the idea. The code, S>>4, 1023/16 = 255, this is the scaling, why limit s to 65 ? Better dynamic balancing for simple motor & homemade test jig, it is too dangerous and magnet became projectile if motor speed it too high.
+
+```  
+   s=s>>4; //scale down to 0-255 of PWM setting
+   if (s>=65) {s =65;}
 ```  
 
 
