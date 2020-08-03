@@ -23,8 +23,7 @@ simple coil used as detector and antenna, schematic.
 ![mimic_19KHZ_OOK.jpg](mimic_19KHZ_OOK.jpg)  
 .  
 
-
-Quickly turning on/off of a coil, it radiates RF signal, in reversed way, a coil will detects RF signal when the magnet field has change. Transistor Q1 (2N3904) is acting a switch for coil and on/off. Diode D1 is protecting Q1 from damage by coil & high voltaged generated. On board LED of Arduino Nano (pin# D13) is blinkg when coil is in action.
+Quickly turning on/off of a coil, it radiates RF signal, in reversed way, a coil will detects RF signal when the magnetic field has changed or collapsion. Transistor Q1 (2N3904) is acting a switch for coil and on/off. Diode D1 is protecting Q1 from damage by coil & high voltaged generated. On board LED of Arduino Nano (pin# D13) is blinkg when coil is in action.
 
 
 ###    2. build the "wheeling" jig, trigger original RF transmitter, pretending biking  
