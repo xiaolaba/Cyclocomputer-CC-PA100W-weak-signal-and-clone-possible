@@ -57,12 +57,12 @@ Many online tutorial was telling to sum as many as possible sample reading from 
 ```  
 
 ####   2. Scaling ADC result to set point
-AVR MCU has ADC result (10 bit mode) in range 0-1024, but the speeding set point is 0-64. how to do that scaling ?
-Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slowing down accordingly, it is the idea.  
+AVR MCU has ADC result (10 bit mode) in range 0-1023, but the speeding set point is 0-64. how to do that scaling ?
+Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slowing down accordingly, more power and then more speed, it is the idea.  
 
-The code, S>>4, it is equally 1023/2^4 = 1023/64 = 64, this is the scaling. if higher speed is antcipated, s>>3 or s>>2 could be used;  
+The code, S>>4, it is equally 1023/2^4 = 1023/64 = 64, this is the scaling of 0-64. if higher speed is antcipated, S>>3 or s>>2 could be used;  
 
-The code, why limit s to 65 ? Perfect dynamic balancing for simple motor & homemade test jig was not possible, it is too dangerous and magnet became projectile if motor speed it was too high.  
+The code, why limit S to 65 ? Perfect dynamic balancing for simple motor & homemade test jig was not possible, it is too dangerous and magnets became projectile if motor speed it was too high.  
 
 
 ```  
@@ -71,12 +71,12 @@ The code, why limit s to 65 ? Perfect dynamic balancing for simple motor & homem
 ```  
 
 ####   3. Generate PWM signal  
-AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off time, but not the frequency but it is ok for our target and goal,
+AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off time, the ration is (on_time/255), omits the frequency but it is ok for our target and goal,
 ```  
   analogWrite(9,50);  // generate PWM signal, arduino Nano D9 pin, AVR maga328/168 PB1, PWM ratio, on/off time 50/(255-50)%  
 ```  
 
-To drive the motor, PWM signal at D9, plusing NPN transistor (2N3904 or MJE800) & turned on/off quickly, motor will see supply voltage in averaging to a "set point", speed is controlled. but no feedback of this design, it may vary a very little depends on +5V and the motor loading, havier & stronger magnets, all accountable.
+To drive the motor, PWM signal putput at D9 (see Motor driver circuit), plusing NPN transistor (2N3904 or MJE800) & turned on/off quickly, motor will see supply voltage in averaging to a "set point", speed is controlled. but no feedback of this design, it may vary a very little depends on +5V and the motor loading, havier & stronger magnets, all accountable.
 
 ### conclusion
 the smaller brush motor and open-loop control, easy for wheeling and testing
