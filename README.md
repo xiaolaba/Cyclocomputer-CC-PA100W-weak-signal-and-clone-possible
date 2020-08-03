@@ -18,10 +18,10 @@ Operation, rolling magnet trigger the reed relay, RF signal generator pulsing AS
   
 ### Journey of the practices  
 ###    1. build the test rig, clone the RF signal, try to mimic RF single, confirmed RF 19KHZ ASK signal
-simple coil used as detector and antenna, schematic,  
+simple coil used as detector and antenna, schematic. Quickly turning on/off of a coil, it radiates RF signal, in reversed way, a coil will detects RF signal when the magnet field has change. Transistor Q1 (2N3904) is acting a switch for coil and on/off. Diode D1 is protecting Q1 from damage by coil & high voltaged generated. On board LED of Arduino Nano (pin# D13) is blinkg when coil is in action.
 
 
-###    2. build the "wheeling" jig, trigger original RF transimitter
+###    2. build the "wheeling" jig, trigger original RF transmitter, pretending biking  
 mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V power and PWM control to the motor, it is easy and govenered slow RPM. Starting at low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor.
 
 One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be fine, the schematic,  
@@ -33,7 +33,7 @@ These code build with Arduino IDE, under laying is actual avr-gcc, some mix of p
 
 #### Filtering and easy 8 bit MCU (AVR or Arduino Nano / Uno)  
 ####   1. Reading ADC for set point, uses software RC filter
-Many online tutorial was telling to sum as many as possible sample from ADC, kicks out max/min, find the average, some sort of similar to MOVING AVERAGE method. It was ok and works, but what is the point to count so many and averaging. There is trick could be used, uses RC filter in hardware before feeds input to ADC, one resistor and one capacitor (integrator) will do the job, usually 10K/0.01uF. One advance trick is using software to build such RC filtering, simple, fast & better than hardware RC filter, code snippet following, FILTER_SHIFT is RC constant, the greater number the longer response time and vise versa. I did not invented this but learned from those someone who was working for NASA & Appollo, it is fun of learning and finally understood the beauty of code / algorithm design.
+Many online tutorial was telling to sum as many as possible sample reading from ADC, kicks out max/min, find the average, some sort of similar to MOVING AVERAGE method. It was ok and works, but what is the point to count so many and averaging. There is trick that could be used, to uses RC filter in hardware before feeding input to ADC, one resistor and one capacitor (integrator) will do the job, usually 10K/0.01uF. One advance trick is using software to build such RC filtering, simple, fast & better than hardware RC filter, code snippet following, FILTER_SHIFT is RC constant, the greater number the longer response time and vise versa. I did not invented this but learned from those someone who was working for NASA & Appollo, it is fun of learning and finally understood the beauty of code / algorithm design.
 ```  
    uint16_t s = analogRead(A5); // speed setting  
    
@@ -44,10 +44,10 @@ Many online tutorial was telling to sum as many as possible sample from ADC, kic
 ```  
 
 ####   2. Scaling ADC result to set point
-AVR MCU has ADC result (10 bit mode) in range 0-1024, but the speeding set point is 0-255. how to do that scaling ?
-Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slow down accordingly, it is the idea.  
+AVR MCU has ADC result (10 bit mode) in range 0-1024, but the speeding set point is 0-64. how to do that scaling ?
+Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slowing down accordingly, it is the idea.  
 
-The code, S>>4, it is equally 1023/16 = 255, this is the scaling.
+The code, S>>4, it is equally 1023/2^4 = 1023/64 = 64, this is the scaling. if higher speed is antcipated, s>>3 or s>>2 could be used;  
 
 The code, why limit s to 65 ? Perfect dynamic balancing for simple motor & homemade test jig was not possible, it is too dangerous and magnet became projectile if motor speed it was too high.  
 
@@ -62,6 +62,8 @@ AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off tim
 ```  
   analogWrite(9,50);  // generate PWM signal, arduino Nano D9 pin, AVR maga328/168 PB1, PWM ratio, on/off time 50/(255-50)%  
 ```  
+
+To drive the motor, PWM signal at D9, plusing NPN transistor (2N3904 or MJE800) & turned on/off quickly, motor will see supply voltage in averaging to a "set point", speed is controlled. but no feedback of this design, it may vary a very little depends on +5V and the motor loading, havier & stronger magnets, all accountable.
 
 ### conclusion
 the smaller brush motor and open-loop control, easy for wheeling and testing
