@@ -79,5 +79,13 @@ AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off tim
 To drive the motor, PWM signal putput at D9 [(see motor driver circuit)](#3-motor-driver-circuit), plusing NPN transistor (2N3904 or MJE800) & turned on/off quickly, motor will see supply voltage in averaging to a "set point", speed is controlled. but no feedback of this design, it may vary a very little depends on +5V and the motor loading, havier & stronger magnets, all accountable.
 
 ### conclusion
-the smaller brush motor and open-loop control, easy for wheeling and testing.
-result, https://www.youtube.com/watch?v=OulV7slnkP8
+the smaller brush motor and open-loop control, easy for wheeling and testing.  
+result, https://www.youtube.com/watch?v=OulV7slnkP8  
+.  
+.  
+### complete circuit diagram  
+![CC-PA100W_hack_design.0.jpg](CC-PA100W_hack_design.0.jpg)  
+.  
+.  
+![CC-PA100W_hack_design.1.jpg](CC-PA100W_hack_design.1.jpg)
+
