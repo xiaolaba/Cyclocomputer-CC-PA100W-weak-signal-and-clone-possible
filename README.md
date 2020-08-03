@@ -39,7 +39,12 @@ Many online tutorial was telling to sum as many as possible sample from ADC, kic
 
 ####   2. Scaling ADC result to set point
 AVR MCU has ADC result (10 bit mode) in range 0-1024, but the speeding set point is 0-255. how to do that scaling ?
-Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slow down accordingly, it is the idea. The code, S>>4, 1023/16 = 255, this is the scaling, why limit s to 65 ? Better dynamic balancing for simple motor & homemade test jig, it is too dangerous and magnet became projectile if motor speed it too high.
+Brushed DC Motor speed is proportional to supply voltage, PWM control is effectively to vary & averaging supply voltage to this, for example, 5V battery and the smaller motor, quickly turning on/off the motor supply at even interval at 50/50%, the motor will spinning as seeing 5V/2 = 2.5V supply, the speed is around 50%, to vary the ratio of on/off time, motor is speeding up or slow down accordingly, it is the idea.  
+
+The code, S>>4, it is equally 1023/16 = 255, this is the scaling.
+
+The code, why limit s to 65 ? Perfect dynamic balancing for simple motor & homemade test jig was not possible, it is too dangerous and magnet became projectile if motor speed it was too high.  
+
 
 ```  
    s=s>>4; //scale down to 0-255 of PWM setting
