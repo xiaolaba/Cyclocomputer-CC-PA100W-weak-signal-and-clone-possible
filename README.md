@@ -32,7 +32,8 @@ mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V p
 
 Starting at low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor.
 
-One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be fine, LED is free-wheeling diode for transistor & protection, conincidently, it lites up when motor is in action, the schematic,  
+###   3. Motor driver circuit  
+One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be ok, LED is free-wheeling diode for transistor & protection, conincidently, it lites up when motor is in action due to back EMF of motor running, the schematic,  
 ![motor_driver.jpg](motor_driver.jpg)  
 
 
