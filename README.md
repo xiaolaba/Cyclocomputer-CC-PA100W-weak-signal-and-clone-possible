@@ -71,7 +71,7 @@ The code, why limit S to 65 ? Perfect dynamic balancing for simple motor & homem
 ```  
 
 ####   3. Generate PWM signal  
-AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off time, the ration is (on_time/255), omits the frequency but it is ok for our target and goal,
+AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off time, the ratio is (on_time/255), omits the frequency but it is ok for our target and goal,
 ```  
   analogWrite(9,50);  // generate PWM signal, arduino Nano D9 pin, AVR maga328/168 PB1, PWM ratio, on/off time 50/(255-50)%  
 ```  
