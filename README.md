@@ -1,5 +1,5 @@
 # Cyclocomputer-CC-PA100W-weak-signal-and-clone-possible
-STEM project, to learn and practices.  One of customers is telling the dissatisfaction, what, why & how.  
+### STEM project, to learn and practices.  One of customers is telling the dissatisfaction, what, why & how.  
   
 It is one day project, the target, a "fancy" product with new name to us - "Cyclocompetuer". User told that malfuction intermittent as no blinking of counting during biking. To complete & writting the report of project has more than weeks and slowly, not a single day event because no urgent.  
 
