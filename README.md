@@ -17,16 +17,22 @@ Operation, rolling magnet trigger the reed relay, RF signal generator pulsing AS
   
   
 ### Journey of the practices  
-build the test rig, clone the RF signal, try to mimic RF single, confirmed RF 19KHZ ASK signal
+###    1. build the test rig, clone the RF signal, try to mimic RF single, confirmed RF 19KHZ ASK signal
+simple coil used as detector and antenna, schematic,  
 
-build the "wheeling" jig, trigger original RF transimitter, mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V power and PWM control to the motor, it is easy and govenered slow RPM. Starting low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor. One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be fine;
+
+###    2. build the "wheeling" jig, trigger original RF transimitter
+mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V power and PWM control to the motor, it is easy and govenered slow RPM. Starting at low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor.
+
+One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be fine, the schematic,  
+
 
 
 ### Code and hints
 These code build with Arduino IDE, under laying is actual avr-gcc, some mix of pure C and/or Arduino C++.
 
 #### Filtering and easy 8 bit MCU (AVR or Arduino Nano / Uno)  
-####   1. Reading ADC for set point
+####   1. Reading ADC for set point, uses software RC filter
 Many online tutorial was telling to sum as many as possible sample from ADC, kicks out max/min, find the average, some sort of similar to MOVING AVERAGE method. It was ok and works, but what is the point to count so many and averaging. There is trick could be used, uses RC filter in hardware before feeds input to ADC, one resistor and one capacitor (integrator) will do the job, usually 10K/0.01uF. One advance trick is using software to build such RC filtering, simple, fast & better than hardware RC filter, code snippet following, FILTER_SHIFT is RC constant, the greater number the longer response time and vise versa. I did not invented this but learned from those someone who was working for NASA & Appollo, it is fun of learning and finally understood the beauty of code / algorithm design.
 ```  
    uint16_t s = analogRead(A5); // speed setting  
@@ -51,7 +57,11 @@ The code, why limit s to 65 ? Perfect dynamic balancing for simple motor & homem
    if (s>=65) {s =65;}
 ```  
 
-
+####   3. Generate PWM signal  
+AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off time, but not the frequency but it is ok for our target and goal,
+```  
+  analogWrite(9,50);  // generate PWM signal, arduino Nano D9 pin, AVR maga328/168 PB1, PWM ratio, on/off time 50/(255-50)%  
+```  
 
 ### conclusion
 the smaller brush motor and open-loop control, easy for wheeling and testing
