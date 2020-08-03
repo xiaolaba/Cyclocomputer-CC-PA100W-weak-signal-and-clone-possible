@@ -76,7 +76,7 @@ AVR MCU has hardware pin for PWM, this simple method has set ratio of on/off tim
   analogWrite(9,50);  // generate PWM signal, arduino Nano D9 pin, AVR maga328/168 PB1, PWM ratio, on/off time 50/(255-50)%  
 ```  
 
-To drive the motor, PWM signal putput at D9 [README.#Motor driver circuit](README.#Motor driver circuit), plusing NPN transistor (2N3904 or MJE800) & turned on/off quickly, motor will see supply voltage in averaging to a "set point", speed is controlled. but no feedback of this design, it may vary a very little depends on +5V and the motor loading, havier & stronger magnets, all accountable.
+To drive the motor, PWM signal putput at D9 [motor-driver-circuit](https://github.com/xiaolaba/Cyclocomputer-CC-PA100W-weak-signal-and-clone-possible/blob/master/README.md#3-motor-driver-circuit), plusing NPN transistor (2N3904 or MJE800) & turned on/off quickly, motor will see supply voltage in averaging to a "set point", speed is controlled. but no feedback of this design, it may vary a very little depends on +5V and the motor loading, havier & stronger magnets, all accountable.
 
 ### conclusion
 the smaller brush motor and open-loop control, easy for wheeling and testing
