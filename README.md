@@ -22,10 +22,11 @@ build the test rig, clone the RF signal, try to mimic RF single, confirmed RF 19
 build the "wheeling" jig, trigger original RF transimitter, mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V power and PWM control to the motor, it is easy and govenered slow RPM. Starting low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor. One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be fine;
 
 
-### code and hints
+### Code and hints
 These code build with Arduino IDE, under laying is actual avr-gcc, some mix of pure C and/or Arduino C++.
 
 #### Filtering and easy 8 bit MCU (AVR or Arduino Nano / Uno)  
+##### Reading ADC for set point
 Many online tutorial was telling to sum as many as possible sample from ADC, kicks out max/min, find the average, some sort of similar to MOVING AVERAGE method. It was ok and works, but what is the point to count so many and averaging. There is trick could be used, uses RC filter in hardware before feeds input to ADC, one resistor and one capacitor (integrator) will do the job, usually 10K/0.01uF. One advance trick is using software to build such RC filtering, simple, fast & better than hardware RC filter, code snippet following, FILTER_SHIFT is RC constant, the greater number the longer response time and vise versa. I did not invented this but learned from those someone who was working for NASA & Appollo, it is fun of learning and finally understood the beauty of code / algorithm design.
 ```  
    uint16_t s = analogRead(A5); // speed setting  
