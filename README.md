@@ -18,16 +18,29 @@ Operation, rolling magnet trigger the reed relay, RF signal generator pulsing AS
   
 ### Journey of the practices  
 ###    1. build the test rig, clone the RF signal, try to mimic RF single, confirmed RF 19KHZ ASK signal
-simple coil used as detector and antenna, schematic. Quickly turning on/off of a coil, it radiates RF signal, in reversed way, a coil will detects RF signal when the magnet field has change. Transistor Q1 (2N3904) is acting a switch for coil and on/off. Diode D1 is protecting Q1 from damage by coil & high voltaged generated. On board LED of Arduino Nano (pin# D13) is blinkg when coil is in action.
+simple coil used as detector and antenna, schematic.  
+
+![mimic_19KHZ_OOK.jpg](mimic_19KHZ_OOK.jpg)  
+.  
+
+
+Quickly turning on/off of a coil, it radiates RF signal, in reversed way, a coil will detects RF signal when the magnet field has change. Transistor Q1 (2N3904) is acting a switch for coil and on/off. Diode D1 is protecting Q1 from damage by coil & high voltaged generated. On board LED of Arduino Nano (pin# D13) is blinkg when coil is in action.
 
 
 ###    2. build the "wheeling" jig, trigger original RF transmitter, pretending biking  
-mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V power and PWM control to the motor, it is easy and govenered slow RPM. Starting at low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor.
+mimic real biking. Rotating of two magnets, mimic the wheeling sucessufuly, 5V power and PWM control to the motor, it is easy and govenered slow RPM.  
+![mimic_biking.JPG](mimic_biking.JPG)
+
+Starting at low PWM is not possible as load and friction, PWM ratio of 40/255 to 63/255 seems the best fit for the case and the specific small motor.
 
 One transistor is good enough, 2N3904 or MJE800, both tested as works well, general NPN would be fine, the schematic,  
+![motor_driver.jpg](motor_driver.jpg)  
 
 
 
+.  
+.  
+.  
 ### Code and hints
 These code build with Arduino IDE, under laying is actual avr-gcc, some mix of pure C and/or Arduino C++.
 
